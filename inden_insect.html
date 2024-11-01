@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identify Insect</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Prevent scrolling while loading */
+        }
+        /* Loader styling */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        .loader .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ccc;
+            border-top-color: #34c759;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* Main content styling */
+        .container {
+            width: 100%;
+            height: 100%;
+            max-width: 400px;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Hidden initially, shown after loading */
+        }
+        .upload-area {
+            width: 100%;
+            height: 200px;
+            background-color: #d9d9d9;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .identify-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #34c759;
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+        .identify-button:hover {
+            background-color: #2a9f48;
+        }
+        #fileInputGallery, #fileInputCamera {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            .upload-area {
+                height: 150px;
+                font-size: 0.9em;
+            }
+            .identify-button {
+                font-size: 1em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Image Upload Area for Camera -->
+        <div class="upload-area" onclick="document.getElementById('fileInputCamera').click()">
+            From Camera
+        </div>
+
+        <!-- Image Upload Area for Gallery -->
+        <div class="upload-area" onclick="document.getElementById('fileInputGallery').click()">
+            From Gallery
+        </div>
+
+        <!-- Hidden file inputs -->
+        <input type="file" id="fileInputCamera" accept="image/*" capture="environment" onchange="handleFileSelect(event)">
+        <input type="file" id="fileInputGallery" accept="image/*" onchange="handleFileSelect(event)">
+
+        <!-- Identify Insect Button -->
+        <a href="insectres.html">
+            <button class="identify-button">Identify Insect</button>
+        </a>
+    </div>
+
+    <script>
+        // Loader function to hide loader after 2 seconds and show main content
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loader').style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+                document.body.style.overflow = 'auto'; // Enable scrolling after loading
+            }, 2000); // 2-second delay
+        });
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert("File selected: " + file.name);
+                // Further processing can be done here, like displaying the image preview
+            }
+        }
+    </script>
+</body>
+</html>
